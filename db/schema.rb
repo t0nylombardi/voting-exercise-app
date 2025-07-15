@@ -10,5 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_15_232757) do
+  create_table "candidates", id: :string, force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "vote_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_candidates_on_name", unique: true
+  end
+
+  create_table "participations", id: :string, force: :cascade do |t|
+    t.string "user_id", null: false
+    t.boolean "has_voted", default: false
+    t.boolean "has_written_in", default: false
+    t.datetime "voted_at"
+    t.string "device_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_participations_on_user_id", unique: true
+  end
+
+  create_table "users", id: :string, force: :cascade do |t|
+    t.string "email", null: false
+    t.string "zip_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "votes", id: :string, force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "candidate_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "candidate_id"], name: "index_votes_on_user_id_and_candidate_id", unique: true
+  end
+
+  add_foreign_key "participations", "users"
+  add_foreign_key "votes", "candidates"
+  add_foreign_key "votes", "users"
 end
