@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :vote do
-    id { "MyString" }
-    user_id { "MyString" }
-    candidate_id { "MyString" }
+    id { SecureRandom.uuid }
+    user_id { SecureRandom.uuid }
+    candidate_id { SecureRandom.uuid }
   end
 end
