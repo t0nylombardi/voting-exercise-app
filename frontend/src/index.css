@@ -1,68 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color palette */
+  --color-gray-900: #1a1a1a;
+  --color-gray-700: #404040;
+  --color-gray-500: #8c8c8c;
+  --color-gray-300: #d9d9d9;
+  --color-gray-100: #f5f5f5;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-sans: "Source Code Pro", ui-monospace, SFMono-Regular, monospace;
+
+  --border-radius: 0.5rem;
+  --container-padding: 1.5rem;
+
+  /* Breakpoints */
+  --breakpoint-sm: 425px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-large: 1440px;
+
+  /* Typography Sizes */
+  --text-xs: 16px;
+  --text-xs--line-height: 1.4rem;
+  --text-sm: 18px;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 18px;
+  --text-base--line-height: 1.6rem;
+  --text-lg: 21px;
+  --text-lg--line-height: 1.8rem;
+  --text-xl: 24px;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 28px;
+  --text-2xl--line-height: 2.25rem;
+  --text-3xl: 34px;
+  --text-3xl--line-height: 2.5rem;
+  --text-4xl: 42px;
+  --text-4xl--line-height: 3rem;
+  --text-5xl: 56px;
+  --text-5xl--line-height: 4rem;
+  --text-6xl: 72px;
+  --text-6xl--line-height: 5rem;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.5;
-  font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-black);
+  background-color: var(--color-white);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
