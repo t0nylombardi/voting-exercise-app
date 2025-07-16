@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @theme {
   /* Color palette */
   --color-gray-900: #1a1a1a;
@@ -42,18 +41,4 @@
   --text-5xl--line-height: 4rem;
   --text-6xl: 72px;
   --text-6xl--line-height: 5rem;
-}
-
-:root {
-  font-family: var(--font-sans);
-  line-height: 1.5;
-
-  color-scheme: light dark;
-  color: var(--color-black);
-  background-color: var(--color-white);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
