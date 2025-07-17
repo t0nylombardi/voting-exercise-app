@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post "/vote", to: "votes#create"
+      get "/results", to: "results#index"
+
+      resources :candidates, only: [:index, :show]
+
       post "/login", to: "sessions#create"
       delete "/logout", to: "sessions#destroy"
     end

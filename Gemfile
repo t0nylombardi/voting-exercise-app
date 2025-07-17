@@ -24,11 +24,11 @@ gem "bcrypt", "~> 3.1.7" # For password hashing
 gem "jbuilder"
 
 # Miscellaneous
-gem "tzinfo-data", platforms: %i[windows jruby]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "bootsnap", require: false
 
 group :development, :test do
-  gem "debug", platforms: %i[mri windows]
+  gem "debug", platforms: %i[mingw mswin x64_mingw jruby]
   gem "factory_bot_rails"
   gem "ruby-lsp-rails-factory-bot"
   gem "faker"
@@ -49,7 +49,7 @@ group :development do
   gem "rubocop-rails-omakase", require: false
   gem "ruby_audit"
   gem "ruby-lsp-rspec"
-  gem "standard", ">= 1.50.0"
+  gem "standard"
   gem "standard-rails"
 end
 
