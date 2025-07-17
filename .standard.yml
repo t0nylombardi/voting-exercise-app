@@ -1,0 +1,18 @@
+plugins:
+  - standard-rails
+
+extend_config:
+  - .rubocop.ext.yml
+
+Rails:
+  Enabled: true
+
+ignore:
+  - '**/*':
+    - Layout/SpaceInsideHashLiteralBraces
+    - RSpec/FilePath
+  - 'spec/requests/**/*':
+    - RSpec/EmptyExampleGroup
+    - RSpec/VariableName
+  - 'spec/tasks/**/*':
+    - RSpec/DescribeClass

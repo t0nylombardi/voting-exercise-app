@@ -17,6 +17,9 @@ gem "sprockets-rails"
 gem "shakapacker", "= 8.1"
 gem "react-rails", "= 3.2"
 
+# Authentication
+gem "bcrypt", "~> 3.1.7" # For password hashing
+
 # JSON builder
 gem "jbuilder"
 
