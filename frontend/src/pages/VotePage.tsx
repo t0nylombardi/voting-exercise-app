@@ -9,7 +9,6 @@ const VotePage = (): ReactElement => {
   const [writeIn, setWriteIn] = useState("");
 
   const candidates = [
-    // TODO: fetch from backend
     "Cindy and The Scintillators",
     "Alice Wonderland",
     "DJ Electra",
@@ -18,7 +17,6 @@ const VotePage = (): ReactElement => {
 
   const handleVote = (e: React.FormEvent) => {
     e.preventDefault();
-    // submit vote logic
     console.log("Voted for:", selectedCandidate || writeIn);
   };
 
@@ -27,12 +25,14 @@ const VotePage = (): ReactElement => {
       <div className="w-[45rem]">
         <h1 className="text-6xl leading-[1.5] mb-12">Cast your vote today!</h1>
 
-        <form onSubmit={handleVote} className="space-y-6 w-full">
-          <fieldset className="space-y-3">
+        <form onSubmit={handleVote} className="space-y-12 w-full">
+          {/* Candidate Selection */}
+          <fieldset className="space-y-4">
+            <legend className="sr-only">Select a candidate</legend>
             {candidates.map((name) => (
               <label
                 key={name}
-                className="flex items-center text-2xl space-x-4"
+                className="flex items-center text-2xl space-x-4 cursor-pointer"
               >
                 <input
                   type="radio"
@@ -44,26 +44,38 @@ const VotePage = (): ReactElement => {
                     setWriteIn("");
                   }}
                   className={clsx(
-                    "appearance-none w-10 h-10 my-4 rounded-full border-4 border-black/50",
-                    selectedCandidate === name && "bg-black/50"
+                    "appearance-none w-6 h-6 rounded-full border-4 border-black/70",
+                    "focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black",
+                    selectedCandidate === name && "bg-black"
                   )}
+                  aria-label={`Vote for ${name}`}
                 />
                 <span>{name}</span>
               </label>
             ))}
-            <Button type="submit" className=" w-1/4 my-4 py-4 text-4xl">
+
+            <Button
+              type="submit"
+              className="w-1/3 my-4 py-4 text-4xl"
+              aria-label="Submit vote for selected candidate"
+            >
               Vote
             </Button>
           </fieldset>
 
-          <hr className="border-t border-black/50 border-2 my-12" />
+          <hr className="border-t-2 border-black/50" />
 
           <div>
-            <label htmlFor="write-in" className="block text-2xl mb-6">
+            <label htmlFor="write-in" className="block text-2xl mb-4">
               Or, add a new candidate:
             </label>
+            <p id="write-in-desc" className="text-base mb-4 text-gray-600">
+              You may only write in one new candidate. This will automatically
+              cast your vote.
+            </p>
             <div className="flex flex-row items-center gap-4">
               <TextInput
+                id="write-in"
                 name="write-in"
                 value={writeIn}
                 onChange={(e) => {
@@ -72,8 +84,13 @@ const VotePage = (): ReactElement => {
                 }}
                 placeholder="Enter name..."
                 className="flex-1 py-5 px-4 text-2xl border-4 border-black/50 rounded-xl"
+                aria-describedby="write-in-desc"
               />
-              <Button type="submit" className="text-medium w-32 py-6 text-2xl">
+              <Button
+                type="submit"
+                className="text-medium w-32 py-6 text-2xl"
+                aria-label="Submit vote for new write-in candidate"
+              >
                 Vote
               </Button>
             </div>
