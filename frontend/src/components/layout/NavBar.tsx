@@ -1,4 +1,5 @@
 import { type User } from "../../types/userType";
+import Button from "../ui/Button/Button";
 
 interface NavBarProps {
   user: User | null;
@@ -8,20 +9,17 @@ interface NavBarProps {
 
 export default function NavBar({ user, isLoggedIn, logout }: NavBarProps) {
   return (
-    <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-300 bg-[--color-bg-primary]">
+    <nav className="flex items-center justify-between px-6 py-4 border-4 border-black/50 ">
       <h1 className="text-xl">VOTE.WEBSITE</h1>
 
       {isLoggedIn && user && (
         <div className="flex items-center gap-4">
-          <span className="text-[--color-text-secondary]">
+          <span className="text-lg text-right block">
             Signed in as <span className="font-medium">{user.email}</span>
           </span>
-          <button
-            onClick={logout}
-            className="px-4 py-2 text-white rounded bg-[--color-danger] hover:bg-[--color-danger-hover] transition"
-          >
+          <Button onClick={logout} className="w-24">
             Logout
-          </button>
+          </Button>
         </div>
       )}
     </nav>
