@@ -5,8 +5,7 @@ RSpec.describe Api::V1::VotesController, type: :request do
     create(:user,
       email: "offkeyandy@outofpitch.io",
       password: "iForgotMyPwdAgain",
-      zip_code: "54321"
-    )
+      zip_code: "54321")
   end
 
   before do
@@ -18,7 +17,7 @@ RSpec.describe Api::V1::VotesController, type: :request do
       # let!(:candidate) { Candidate.create!(name: "DJ Synth") }
 
       it "casts a vote successfully" do
-        post "/api/v1/vote", params: { candidate_name: "DJ Synth" }
+        post "/api/v1/vote", params: {candidate_name: "DJ Synth"}
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)["message"]).to eq("Vote recorded")
@@ -34,7 +33,7 @@ RSpec.describe Api::V1::VotesController, type: :request do
       end
 
       it "does not allow multiple votes" do
-        post "/api/v1/vote", params: { candidate_name: "DJ Synth" }
+        post "/api/v1/vote", params: {candidate_name: "DJ Synth"}
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)["error"]).to match(/already voted/i)
@@ -43,7 +42,7 @@ RSpec.describe Api::V1::VotesController, type: :request do
 
     context "when writing in a new candidate" do
       it "creates candidate and votes for them" do
-        post "/api/v1/vote", params: { candidate_name: "MC Byte" }
+        post "/api/v1/vote", params: {candidate_name: "MC Byte"}
 
         expect(response).to have_http_status(:ok)
         expect(Candidate.find_by(name: "Mc Byte")).to be_present
@@ -58,7 +57,7 @@ RSpec.describe Api::V1::VotesController, type: :request do
       end
 
       it "prevents another write-in" do
-        post "/api/v1/vote", params: { candidate_name: "MC Byte" }
+        post "/api/v1/vote", params: {candidate_name: "MC Byte"}
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)["error"]).to match(/already wrote in/i)
@@ -71,7 +70,7 @@ RSpec.describe Api::V1::VotesController, type: :request do
       end
 
       it "prevents creating a new candidate" do
-        post "/api/v1/vote", params: { candidate_name: "MC Byte" }
+        post "/api/v1/vote", params: {candidate_name: "MC Byte"}
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)["error"]).to match(/too many candidates/i)
