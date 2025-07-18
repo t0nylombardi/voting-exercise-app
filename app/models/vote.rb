@@ -2,7 +2,7 @@
 
 class Vote < ApplicationRecord
   belongs_to :user
-  belongs_to :candidate
+  belongs_to :candidate, counter_cache: true
 
   validates :candidate_id, presence: true
   validates :user_id, presence: true

@@ -121,7 +121,8 @@ module Voting
     # @param [Candidate] candidate The candidate to vote for.
     # @return [Vote] The created vote.
     def create_vote(candidate)
-      Vote.create!(user: user, candidate: candidate)
+      Vote.create!(user_id: user.id, candidate_id: candidate.id)
+      candidate.increment!(:votes_count)
     end
 
     # Returns a success result with the candidate.

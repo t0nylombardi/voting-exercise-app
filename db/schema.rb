@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_18_042339) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_18_050715) do
   create_table "candidates", id: :string, force: :cascade do |t|
     t.string "name", null: false
-    t.integer "vote_count", default: 0
+    t.integer "votes_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_candidates_on_name", unique: true

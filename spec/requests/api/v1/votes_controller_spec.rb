@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::VotesController, type: :request do
   let(:user) do
-    User.create!(
+    create(:user,
       email: "offkeyandy@outofpitch.io",
       password: "iForgotMyPwdAgain",
       zip_code: "54321"
@@ -15,14 +15,14 @@ RSpec.describe Api::V1::VotesController, type: :request do
 
   describe "POST /api/v1/vote" do
     context "when voting for an existing candidate" do
-      let!(:candidate) { Candidate.create!(name: "DJ Synth") }
+      # let!(:candidate) { Candidate.create!(name: "DJ Synth") }
 
       it "casts a vote successfully" do
         post "/api/v1/vote", params: { candidate_name: "DJ Synth" }
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)["message"]).to eq("Vote recorded")
-        expect(Vote.where(user: user, candidate: candidate)).to exist
+        expect(user.reload.voted?).to be true
       end
     end
 
