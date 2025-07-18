@@ -2,6 +2,7 @@
 
 class CreateUsers < ActiveRecord::Migration[7.0]
   def change
+    # rubocop:disable Rails/DangerousColumnNames
     create_table :users, id: false do |t|
       t.string :id, primary_key: true # Used for sqlite compatibility for UUIDS
       t.string :email, null: false, unique: true

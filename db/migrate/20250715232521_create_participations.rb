@@ -2,6 +2,7 @@
 
 class CreateParticipations < ActiveRecord::Migration[7.0]
   def change
+    # rubocop:disable Rails/DangerousColumnNames
     create_table :participations, id: false do |t|
       t.string :id, primary_key: true
       t.string :user_id, null: false

@@ -2,6 +2,7 @@
 
 class CreateVotes < ActiveRecord::Migration[7.0]
   def change
+    # rubocop:disable Rails/DangerousColumnNames
     create_table :votes, id: false do |t|
       t.string :id, primary_key: true
       t.string :user_id, null: false
