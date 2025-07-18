@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ostruct'
+
 # Service object for casting a vote for a candidate.
 #
 # This service handles the logic for casting a vote by a user, including:

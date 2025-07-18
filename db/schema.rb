@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_15_232757) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_18_042339) do
   create_table "candidates", id: :string, force: :cascade do |t|
     t.string "name", null: false
     t.integer "vote_count", default: 0
@@ -36,7 +36,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_15_232757) do
     t.string "zip_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "write_in_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["write_in_id"], name: "index_users_on_write_in_id"
   end
 
   create_table "votes", id: :string, force: :cascade do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_15_232757) do
   end
 
   add_foreign_key "participations", "users"
+  add_foreign_key "users", "candidates", column: "write_in_id"
   add_foreign_key "votes", "candidates"
   add_foreign_key "votes", "users"
 end
