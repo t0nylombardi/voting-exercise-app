@@ -1,9 +1,0 @@
-plugins:
-  - standard-rails
-  - rubocop-rails
-  - rubocop-rake
-  - rubocop-rspec
-  - rubocop-thread_safety
-
-Rails:
-  Enabled: true

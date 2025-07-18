@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "API::V1::Sessions", type: :request do
@@ -6,7 +8,7 @@ RSpec.describe "API::V1::Sessions", type: :request do
   let(:zip_code) { "54321" }
 
   let(:valid_params) do
-    { email: email, password: password, zip_code: zip_code }
+    {email: email, password: password, zip_code: zip_code}
   end
 
   describe "POST /api/v1/login" do
@@ -66,7 +68,7 @@ RSpec.describe "API::V1::Sessions", type: :request do
     let!(:user) { User.create!(email: "out@example.com", password: "x", zip_code: "00000") }
 
     before do
-      post "/api/v1/login", params: { email: user.email, password: "x", zip_code: "00000" }
+      post "/api/v1/login", params: {email: user.email, password: "x", zip_code: "00000"}
       expect(session[:user_id]).to eq(user.id)
     end
 

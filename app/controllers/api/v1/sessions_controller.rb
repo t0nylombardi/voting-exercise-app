@@ -18,9 +18,9 @@ module Api
 
         if result.success?
           session[:user_id] = result.user.id
-          render json: { message: "Logged in", user: result.user }, status: :ok
+          render json: {message: "Logged in", user: result.user}, status: :ok
         else
-          render json: { error: result.error }, status: :unprocessable_entity
+          render json: {error: result.error}, status: :unprocessable_entity
         end
       end
 

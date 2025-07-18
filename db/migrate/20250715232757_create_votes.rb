@@ -10,6 +10,7 @@ class CreateVotes < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    # rubocop:enable Rails/DangerousColumnNames
 
     add_foreign_key :votes, :users
     add_foreign_key :votes, :candidates

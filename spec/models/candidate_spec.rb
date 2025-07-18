@@ -21,9 +21,9 @@ RSpec.describe Candidate, type: :model do
 
   it { is_expected.to be_valid }
 
-  it { should validate_presence_of(:name) }
-  it { should have_many(:votes).dependent(:destroy) }
-  it { should have_many(:users).through(:votes) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to have_many(:votes).dependent(:destroy) }
+  it { is_expected.to have_many(:users).through(:votes) }
 
   it "assigns UUID on create" do
     candidate = create(:candidate)

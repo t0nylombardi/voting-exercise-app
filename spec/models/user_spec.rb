@@ -28,13 +28,13 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to be_valid }
 
-  it { should validate_presence_of(:email) }
-  it { should validate_uniqueness_of(:email) }
-  it { should validate_presence_of(:zip_code) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_uniqueness_of(:email) }
+  it { is_expected.to validate_presence_of(:zip_code) }
 
-  it { should have_one(:participation).dependent(:destroy) }
-  it { should have_many(:votes) }
-  it { should have_many(:candidates).through(:votes) }
+  it { is_expected.to have_one(:participation).dependent(:destroy) }
+  it { is_expected.to have_many(:votes) }
+  it { is_expected.to have_many(:candidates).through(:votes) }
 
   it "assigns UUID on create" do
     user = create(:user)

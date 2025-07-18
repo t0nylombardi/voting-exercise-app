@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VoteHelpers
   def seed_votes(vote_tuples)
     vote_tuples.each do |user, candidate|
