@@ -10,6 +10,6 @@ class CreateCandidates < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_index :candidates, :name, unique: true
+    add_index :candidates, :name
   end
 end

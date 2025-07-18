@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_18_050715) do
     t.integer "votes_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_candidates_on_name", unique: true
+    t.index ["name"], name: "index_candidates_on_name"
   end
 
   create_table "participations", id: :string, force: :cascade do |t|
