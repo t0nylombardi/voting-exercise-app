@@ -23,8 +23,6 @@ class Vote < ApplicationRecord
   belongs_to :user
   belongs_to :candidate, counter_cache: true
 
-  validates :candidate_id, presence: true
-  validates :user_id, presence: true
   validate :user_has_not_already_voted
 
   before_create -> { self.id ||= SecureRandom.uuid }

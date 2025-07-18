@@ -12,6 +12,7 @@ require "rspec/rails"
 require "support/factory_bot"
 require "support/faker"
 require "support/shoulda"
+require "support/voter_stubs"
 
 # Load support files with custom matchers and macros, etc.
 Rails.root.glob("spec/support/**/*.rb").sort.each { |f| require f }
