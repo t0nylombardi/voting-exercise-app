@@ -1,4 +1,5 @@
 export interface User {
   email: string;
-  zip: string;
+  password: string;
+  zip_code: string;
 }

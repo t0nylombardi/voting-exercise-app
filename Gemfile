@@ -22,6 +22,9 @@ gem "react-rails", "= 3.2"
 # Authentication
 gem "bcrypt", "~> 3.1.7" # For password hashing
 
+# Authorization
+gem "rack-cors", "~> 3.0"
+
 # JSON builder
 gem "jbuilder"
 

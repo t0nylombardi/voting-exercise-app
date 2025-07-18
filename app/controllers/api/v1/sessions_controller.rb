@@ -9,6 +9,8 @@
 module Api
   module V1
     class SessionsController < ApplicationController
+      skip_before_action :verify_authenticity_token
+
       # Logs in a user by creating or retrieving a User via LoginService.
       # Stores the user ID in the Rails session.
       #

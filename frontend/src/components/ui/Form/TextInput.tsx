@@ -4,25 +4,23 @@ import clsx from "clsx";
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   name: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
+  error?: string;
   className?: string;
 }
 
 const TextInput = ({
   label,
   name,
-  placeholder,
+  error,
   className,
-  onChange,
   ...props
 }: TextInputProps) => {
   return (
-    <div>
+    <div className="mb-4">
       {label && (
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-gray-700 mb-1"
         >
           {label}
         </label>
@@ -30,15 +28,21 @@ const TextInput = ({
       <input
         id={name}
         name={name}
-        onChange={onChange}
         className={clsx(
-          "w-full px-3 py-3 border border-black bg-white rounded-lg",
+          "w-full px-3 py-3 border rounded-lg",
+          error ? "border-red-500" : "border-black",
           "focus:outline-none focus:ring-2 focus:ring-white transition",
           className
         )}
-        placeholder={placeholder}
-        {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${name}-error` : undefined}
+        {...props}
       />
+      {error && (
+        <p id={`${name}-error`} className="text-red-500 text-sm mt-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 };
