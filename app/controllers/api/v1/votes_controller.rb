@@ -4,6 +4,8 @@ module Api
   module V1
     # VotesController handles the voting actions for the API
     class VotesController < ApplicationController
+      skip_before_action :verify_authenticity_token
+
       def create
         result = Voting::CastVoteService.call(user: current_user, candidate_name: params[:candidate_name])
 

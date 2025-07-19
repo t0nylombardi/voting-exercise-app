@@ -1,23 +1,100 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import MainWrapper from "../components/layout/MainWrapper";
-import TextInput from "../components/ui/Form/TextInput";
-import Button from "../components/ui/Button/Button";
-import clsx from "clsx";
+import CandidateList from "../components/vote/CandidateList";
+import WriteInForm from "../components/vote/WriteInForm";
+import VoteFeedback from "../components/vote/VoteFeedback";
+import { castVote } from "../services/voteService";
+import { fetchCandidates } from "../services/resultsService";
+import { useVoteState } from "../hooks/useVoteState";
 
 const VotePage = (): ReactElement => {
-  const [selectedCandidate, setSelectedCandidate] = useState("");
-  const [writeIn, setWriteIn] = useState("");
+  const {
+    candidates,
+    setCandidates,
+    selectedCandidate,
+    setSelectedCandidate,
+    writeIn,
+    setWriteIn,
+    loading,
+    setLoading,
+    votingMode,
+    setVotingMode,
+    globalError,
+    setGlobalError,
+    writeInError,
+    setWriteInError,
+    success,
+    setSuccess,
+  } = useVoteState();
 
-  const candidates = [
-    "Cindy and The Scintillators",
-    "Alice Wonderland",
-    "DJ Electra",
-    "MC Tempo",
-  ];
+  useEffect(() => {
+    fetchCandidates()
+      .then(setCandidates)
+      .catch(() => setGlobalError("Unable to load candidates."));
+  }, [setCandidates, setGlobalError]);
 
-  const handleVote = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (success) {
+      setSelectedCandidate("");
+      setWriteIn("");
+    }
+  }, [success, setSelectedCandidate, setWriteIn]);
+
+  const handleVote = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Voted for:", selectedCandidate || writeIn);
+
+    const candidateName = getCandidateName();
+    if (!candidateName) return;
+
+    beginVote();
+
+    try {
+      await submitVote(candidateName);
+      await refreshCandidates();
+      markVoteSuccessful();
+    } catch (err) {
+      handleVoteError(err);
+    } finally {
+      finalizeVote();
+    }
+  };
+
+  const getCandidateName = (): string | null => {
+    return selectedCandidate || writeIn || null;
+  };
+
+  const beginVote = () => {
+    setLoading(true);
+    setGlobalError(null);
+    setWriteInError(null);
+  };
+
+  const submitVote = async (name: string) => {
+    await castVote(name);
+  };
+
+  const refreshCandidates = async () => {
+    const updated = await fetchCandidates();
+    setCandidates(updated);
+  };
+
+  const markVoteSuccessful = () => {
+    setSuccess(true);
+  };
+
+  const handleVoteError = (err: unknown) => {
+    const message =
+      err instanceof Error ? err.message : "Something went wrong.";
+    if (votingMode === "write-in") {
+      setWriteInError(message);
+    } else {
+      setGlobalError(message);
+    }
+  };
+
+  const finalizeVote = () => {
+    setLoading(false);
+    setVotingMode(null);
   };
 
   return (
@@ -26,75 +103,33 @@ const VotePage = (): ReactElement => {
         <h1 className="text-6xl leading-[1.5] mb-12">Cast your vote today!</h1>
 
         <form onSubmit={handleVote} className="space-y-12 w-full">
-          {/* Candidate Selection */}
-          <fieldset className="space-y-4">
-            <legend className="sr-only">Select a candidate</legend>
-            {candidates.map((name) => (
-              <label
-                key={name}
-                className="flex items-center text-2xl space-x-4 cursor-pointer"
-              >
-                <input
-                  type="radio"
-                  name="vote"
-                  value={name}
-                  checked={selectedCandidate === name}
-                  onChange={() => {
-                    setSelectedCandidate(name);
-                    setWriteIn("");
-                  }}
-                  className={clsx(
-                    "appearance-none w-6 h-6 rounded-full border-4 border-black/70",
-                    "focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black",
-                    selectedCandidate === name && "bg-black"
-                  )}
-                  aria-label={`Vote for ${name}`}
-                />
-                <span>{name}</span>
-              </label>
-            ))}
+          <CandidateList
+            candidates={candidates}
+            selected={selectedCandidate}
+            loading={loading && votingMode === "existing"}
+            success={success}
+            onSelect={(name) => {
+              setSelectedCandidate(name);
+              setWriteIn("");
+            }}
+            onVoteClick={() => setVotingMode("existing")}
+          />
 
-            <Button
-              type="submit"
-              className="w-1/3 my-4 py-4 text-4xl"
-              aria-label="Submit vote for selected candidate"
-            >
-              Vote
-            </Button>
-          </fieldset>
+          <VoteFeedback error={globalError} success={success} />
 
           <hr className="border-t-2 border-black/50" />
 
-          <div>
-            <label htmlFor="write-in" className="block text-2xl mb-4">
-              Or, add a new candidate:
-            </label>
-            <p id="write-in-desc" className="text-base mb-4 text-gray-600">
-              You may only write in one new candidate. This will automatically
-              cast your vote.
-            </p>
-            <div className="flex flex-row items-center gap-4">
-              <TextInput
-                id="write-in"
-                name="write-in"
-                value={writeIn}
-                onChange={(e) => {
-                  setWriteIn(e.target.value);
-                  setSelectedCandidate("");
-                }}
-                placeholder="Enter name..."
-                className="flex-1 py-5 px-4 text-2xl border-4 border-black/50 rounded-xl"
-                aria-describedby="write-in-desc"
-              />
-              <Button
-                type="submit"
-                className="text-medium w-32 py-6 text-2xl"
-                aria-label="Submit vote for new write-in candidate"
-              >
-                Vote
-              </Button>
-            </div>
-          </div>
+          <WriteInForm
+            value={writeIn}
+            onChange={(val) => {
+              setWriteIn(val);
+              setSelectedCandidate("");
+            }}
+            loading={loading && votingMode === "write-in"}
+            success={success}
+            error={writeInError}
+            onVoteClick={() => setVotingMode("write-in")}
+          />
         </form>
       </div>
     </MainWrapper>
