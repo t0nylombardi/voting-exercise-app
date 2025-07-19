@@ -16,6 +16,14 @@ Rails.application.routes.draw do
 
       post "/login", to: "sessions#create"
       delete "/logout", to: "sessions#destroy"
+
+      # testing route for deployment
+      get "/debug/env", to: ->(env) {
+        [200, { "Content-Type" => "application/json" }, [env.to_json]]
+      }, as: :debug_env
+
+
+
     end
   end
 end
