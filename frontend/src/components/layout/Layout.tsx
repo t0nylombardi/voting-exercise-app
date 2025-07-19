@@ -26,11 +26,7 @@ export default function Layout() {
 
   return (
     <>
-      <NavBar
-        logout={logout}
-        isLoggedIn={isLoggedIn}
-        user={user ?? { email: "", zip: "" }}
-      />
+      <NavBar logout={logout} isLoggedIn={isLoggedIn} user={user} />
       <Outlet />
     </>
   );

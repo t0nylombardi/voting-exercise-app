@@ -11,6 +11,6 @@ export interface VoteResponse {
 export async function castVote(candidateName: string) {
   return apiFetch<VoteResponse>("/vote", {
     method: "POST",
-    body: JSON.stringify({ candidate_name: candidateName }),
+    body: { candidate_name: candidateName },
   });
 }
