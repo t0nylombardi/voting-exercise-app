@@ -17,14 +17,20 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /var/www/voting-exercise-app
 
-            echo "📥 Pulling latest code..."
-            git pull origin main
+      - name: cd to app directory and deploy
+        run: |
+          cd /var/www/voting-exercise-app
 
-            echo "🚀 Running deploy script..."
-            ./scripts/deploy.sh
+          echo "📥 Pulling latest code..."
+          git pull origin main
 
-            echo "♻️ Restarting Rails API via PM2..."
-            pm2 restart ./scripts/pm2.config.js
+          echo "🚀 Running deploy script..."
+          ./scripts/deploy.sh
+
+          echo "♻️ Restarting Rails API via PM2..."
+          pm2 restart ./scripts/pm2.config.js
+          echo "✅ Deployment complete!"
+        env:
+          RAILS_ENV: production
+          NODE_ENV: production

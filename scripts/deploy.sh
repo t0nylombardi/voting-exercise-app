@@ -3,6 +3,9 @@ set -euo pipefail
 
 echo "Starting Voting App deployment..."
 
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 echo "Installing backend gems..."
 bundle install --without development test
 
