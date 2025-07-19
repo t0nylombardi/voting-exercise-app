@@ -10,7 +10,7 @@ echo "Installing backend gems..."
 bundle install --without development test
 
 echo "Setting up SQLite database..."
-if [ ! -f db/production.sqlite3 ]; then
+if [ ! -f storage/production.sqlite3 ]; then
   echo "Creating new SQLite database..."
   RAILS_ENV=production bundle exec rails db:setup
 else
