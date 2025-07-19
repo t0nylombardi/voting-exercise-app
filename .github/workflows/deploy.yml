@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/voting-app
+            cd /var/www/voting-exercise-app
 
             echo "📥 Pulling latest code..."
             git pull origin main
