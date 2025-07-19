@@ -1,18 +1,12 @@
 import type { User } from "../types/userType";
+import { apiFetch } from "./api";
 
 export async function login(payload: User): Promise<User> {
-  const res = await fetch("http://localhost:3000/api/v1/login", {
+  const data = await apiFetch<{ user: User }>("/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     credentials: "include",
-    body: JSON.stringify(payload),
+    body: payload as unknown as Record<string, unknown>,
   });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.error || "Login failed");
-  }
 
   return data.user;
 }

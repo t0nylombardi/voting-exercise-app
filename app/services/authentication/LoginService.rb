@@ -79,7 +79,7 @@ module Authentication
     #
     # @return [Boolean] true if valid
     def valid_params?
-      params[:email].present? && params[:zip_code].present?
+      params[:email].present? && params[:password].present? && params[:zip_code].present?
     end
   end
 end

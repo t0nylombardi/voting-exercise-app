@@ -33,37 +33,39 @@ const LoginPage = ({ onLogin }: { onLogin: (user: User) => void }) => {
 
   return (
     <MainWrapper>
-      <h2 className="text-4xl mb-6">Sign in to vote</h2>
+      <div className="w-1/4">
+        <h2 className="text-4xl mb-6">Sign in to vote</h2>
 
-      <form onSubmit={handleSubmit} noValidate>
-        <TextInput
-          label="Email"
-          name="email"
-          type="email"
-          required
-          disabled={loading}
-        />
-        <TextInput
-          label="Password"
-          name="password"
-          type="password"
-          required
-          disabled={loading}
-        />
-        <TextInput
-          label="Zip Code"
-          name="zip"
-          type="text"
-          required
-          disabled={loading}
-        />
+        <form onSubmit={handleSubmit} noValidate>
+          <TextInput
+            label="Email"
+            name="email"
+            type="email"
+            required
+            disabled={loading}
+          />
+          <TextInput
+            label="Password"
+            name="password"
+            type="password"
+            required
+            disabled={loading}
+          />
+          <TextInput
+            label="Zip Code"
+            name="zip"
+            type="text"
+            required
+            disabled={loading}
+          />
 
-        {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+          {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
-        <Button type="submit" loading={loading} className="my-4">
-          Sign in
-        </Button>
-      </form>
+          <Button type="submit" loading={loading} className="my-4">
+            Sign in
+          </Button>
+        </form>
+      </div>
     </MainWrapper>
   );
 };
