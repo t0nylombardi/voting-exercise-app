@@ -1,0 +1,30 @@
+name: Deploy Voting App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/voting-app
+
+            echo "📥 Pulling latest code..."
+            git pull origin main
+
+            echo "🚀 Running deploy script..."
+            ./scripts/deploy.sh
+
+            echo "♻️ Restarting Rails API via PM2..."
+            pm2 restart ./scripts/pm2.config.js
