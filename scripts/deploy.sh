@@ -23,7 +23,7 @@ cd frontend
 yarn install --frozen-lockfile
 
 echo "Building frontend..."
-yarn build
+VITE_API_BASE_URL=https://voting-app.t0nylombardi.dev yarn build
 
 cd ..
 
