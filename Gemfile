@@ -31,6 +31,7 @@ gem "jbuilder"
 # Miscellaneous
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "bootsnap", require: false
+gem "amatch"
 
 group :development, :test do
   gem "debug", platforms: %i[mingw mswin x64_mingw jruby]

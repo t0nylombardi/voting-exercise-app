@@ -74,6 +74,9 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    amatch (0.4.2)
+      mize
+      tins (~> 1.0)
     annotaterb (4.17.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -152,6 +155,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.25.5)
+    mize (0.6.1)
     msgpack (1.8.0)
     net-imap (0.5.9)
       date
@@ -370,9 +374,13 @@ GEM
       lint_roller (~> 1.0)
       rubocop-rails (~> 2.31.0)
     stringio (3.1.7)
+    sync (0.5.0)
     thor (1.3.2)
     tilt (2.6.1)
     timeout (0.4.3)
+    tins (1.38.0)
+      bigdecimal
+      sync
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.1.4)
@@ -398,6 +406,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  amatch
   annotaterb
   bcrypt (~> 3.1.7)
   bootsnap
